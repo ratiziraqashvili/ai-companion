@@ -7,7 +7,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "@/hooks/use-debounce";
 import qs from "query-string"
 
-export const MainInput = () => {
+interface MainInputProps {
+  
+}
+
+export const MainInput = ({ }: MainInputProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
