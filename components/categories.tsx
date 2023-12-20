@@ -31,7 +31,7 @@ export const Categories = ({ categories }: CategoriesProps) => {
   }, [id, router]);
 
   return (
-    <div className="space-x-2 pt-3">
+    <div className="flex overflow-auto space-x-2 pt-3">
       <button
         onClick={() => setId("")}
         className={cn(

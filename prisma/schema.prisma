@@ -11,4 +11,24 @@ datasource db {
 model Category {
   id        String @id @default(uuid())
   name      String
+  companions Companion[]
+}
+
+model Companion {
+  id String @id @default(uuid())
+  userId String
+  userName String
+  src String
+  name String
+  description String
+  instructions String @db.Text
+  seed String @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@index([categoryId])
 }

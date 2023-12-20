@@ -8,7 +8,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="hidden md:flex mt-16 h-full w-20 fixed bg-secondary">
                 <Sidebar />
             </div>
-            <main className="h-full md:ml-20 p-4">
+            <main className="h-full pt-20 md:ml-20 p-4">
                 {children}
             </main>
         </div>

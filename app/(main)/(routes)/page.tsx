@@ -6,7 +6,7 @@ export default async function Home() {
   const categories = await db.category.findMany();
 
   return (
-    <div className="pt-16">
+    <div className="">
       <MainInput />
       <Categories categories={categories} />
     </div>

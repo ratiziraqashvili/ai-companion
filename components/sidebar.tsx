@@ -17,14 +17,16 @@ export const Sidebar = () => {
     {
       label: "Create",
       icon: Plus,
-      href: "create",
+      href: "/companion/create",
     },
     {
       label: "Settings",
       icon: Settings,
-      href: "settings",
+      href: "/settings",
     },
   ];
+
+  //TODO:Stripe pro check
 
   return (
     <div className="flex flex-col h-full p-1 space-y-2 pt-3 w-full">
