@@ -1,42 +1,48 @@
-"use client";
-
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { useCallback } from "react";
 
-declare global {
-  var cloudinary: any;
+interface ImageUploadProps {
+    imageUrl: string;
+    onUpload: any;
 }
 
-export const ImageUpload = () => {
-  const handleUpload = useCallback((result: any) => {}, []);
-
+export const ImageUpload = ({ imageUrl,  onUpload }: ImageUploadProps) => {
   return (
     <CldUploadWidget
-      onUpload={handleUpload}
-      uploadPreset=""
+      onUpload={onUpload}
+      uploadPreset="zkrzbng5"
       options={{
         maxFiles: 1,
       }}
     >
       {({ open }) => {
         return (
-          <div className="w-full flex justify-center items-center">
             <div
               onClick={() => open?.()}
-              className="flex justify-center mt-4 border-dashed border-4 border-primary/10 rounded-lg hover:opacity-75 transition w-52 h-44 cursor-pointer"
+              className="flex justify-center mt-4 border-dashed border-4 border-primary/10 rounded-lg hover:opacity-75 transition w-60 h-56 cursor-pointer"
             >
-              <span className="pt-4">
-                <Image
-                  style={{ borderRadius: "0.75rem" }}
-                  src="/placeholder.svg"
-                  alt="placeholder"
-                  width={170}
-                  height={260}
-                />
-              </span> 
+              <span className="my-auto">
+                {imageUrl ? (
+                  <Image
+                    style={{ borderRadius: "0.75rem" }}
+                    src={imageUrl}
+                    alt="Ai profile picture"
+                    width={170}
+                    height={260}
+                    objectFit="cover"
+                  />
+                ) : (
+                    <Image 
+                    style={{ borderRadius: "0.75rem" }}
+                    src="/placeholder.svg" 
+                    alt="Ai profile picture" 
+                    width={180}
+                    height={260}
+                    objectFit="cover"
+                  />
+                )}
+              </span>
             </div>
-          </div>
         );
       }}
     </CldUploadWidget>
