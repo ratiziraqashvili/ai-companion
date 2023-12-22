@@ -46,7 +46,7 @@ export const Companions = ({ companions }: CompanionsProps) => {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 pt-3">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 pt-3 pb-6">
       {filteredCompanions.map((companion) => (
         <Cards key={companion.id} companion={companion} />
       ))}
