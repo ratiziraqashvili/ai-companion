@@ -13,13 +13,14 @@ export const Cards = ({ companion }: CardsProps) => {
     <Card className="flex flex-col bg-primary/10 rounded-xl w-full h-72 hover:opacity-75 cursor-pointer transition">
       <Link href={`/chat/${companion.id}`}>
         <CardContent className="flex flex-col items-center pt-6 w-full gap-1">
-          <Image
-            className="rounded-xl"
-            width={130}
-            height={130}
-            src={companion.imageSrc}
-            alt="Companion image"
-          />
+      <div className="relative w-32 h-32">
+            <Image
+              className="rounded-xl object-cover"
+              fill
+              src={companion.imageSrc}
+              alt="Companion image"
+            />
+      </div>
           <span className="text-md text-muted-foreground font-bold">
             {companion.name}
           </span>

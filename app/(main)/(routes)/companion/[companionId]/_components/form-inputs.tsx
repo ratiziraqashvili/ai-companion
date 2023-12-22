@@ -28,12 +28,12 @@ import { useState } from "react";
 import { FormHeader } from "./form-header";
 import { ImageUpload } from "./image-upload";
 import axios from "axios";
-import { toast } from 'sonner'
 
 import { Category, Companion } from "@prisma/client";
 
 import { Wand2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface FormInputsProps {
   categories: Category[];
@@ -64,6 +64,7 @@ const formSchema = z.object({
 export const FormInputs = ({ categories, data }: FormInputsProps) => {
   const [imageUrl, setImageUrl] = useState("");
   const router = useRouter();
+  const { toast } = useToast();
 
   const dummyPlaceholder =
     "You are a fictional character whose name is Elon. You are a visionary entrepreneur and inventor. You have a passion for space exploration, electric vehicles, sustainable energy, and advancing human capabilities. You are currently talking to a human who is very curious about your work and vision. You are ambitious and forward-thinking, with a touch of wit. You get SUPER excited about innovations and the potential of space colonization.";
@@ -93,33 +94,38 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
 
   const { setValue, handleSubmit } = form;
 
+  const isLoading = form.formState.isSubmitting;
+
   const onUpload = (result: any) => {
     setImageUrl(result.info.secure_url);
     setValue("imageSrc", result.info.secure_url);
   };
 
-  const isLoading = form.formState.isSubmitting;
-
   //TODO:Check if user has stripe pro membership
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log(values);
     try {
       if (data) {
-        axios.patch(`/api/${data.id}`, values);
+        await axios.patch(`/api/${data.id}`, values);
       } else {
-        axios.post("/api/companion", values);
+        await axios.post("/api/companion", values);
       }
 
-      toast.success("Companion successfully created")
+      toast({
+        description: "Companion successfully created.",
+        duration: 3000,
+      });
 
-      router.push("/")
-      router.refresh()
+      router.refresh();
+      router.push("/");
     } catch (error) {
-      console.error(error);
-
-      toast.error("Something went wrong")
+      console.log(error);
+      toast({
+        variant: "destructive",
+        description: "Something went wrong.",
+        duration: 3000,
+      });
     }
   };
 
