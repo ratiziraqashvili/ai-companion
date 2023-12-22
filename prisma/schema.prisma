@@ -18,7 +18,7 @@ model Companion {
   id String @id @default(uuid())
   userId String
   userName String
-  src String
+  imageSrc String
   name String
   description String
   instructions String @db.Text

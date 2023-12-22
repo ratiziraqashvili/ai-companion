@@ -43,6 +43,7 @@ export const Categories = ({ categories }: CategoriesProps) => {
       </button>
       {categories.map((category) => (
         <button
+          key={category.name}
           onClick={() => setId(category.id)}
           className={cn(
             "px-4 py-3 rounded-sm text-sm bg-primary/10 text-white transition hover:opacity-75",

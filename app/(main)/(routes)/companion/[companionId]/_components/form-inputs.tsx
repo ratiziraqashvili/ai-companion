@@ -28,10 +28,12 @@ import { useState } from "react";
 import { FormHeader } from "./form-header";
 import { ImageUpload } from "./image-upload";
 import axios from "axios";
+import { toast } from 'sonner'
 
 import { Category, Companion } from "@prisma/client";
 
 import { Wand2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface FormInputsProps {
   categories: Category[];
@@ -61,6 +63,7 @@ const formSchema = z.object({
 
 export const FormInputs = ({ categories, data }: FormInputsProps) => {
   const [imageUrl, setImageUrl] = useState("");
+  const router = useRouter();
 
   const dummyPlaceholder =
     "You are a fictional character whose name is Elon. You are a visionary entrepreneur and inventor. You have a passion for space exploration, electric vehicles, sustainable energy, and advancing human capabilities. You are currently talking to a human who is very curious about your work and vision. You are ambitious and forward-thinking, with a touch of wit. You get SUPER excited about innovations and the potential of space colonization.";
@@ -100,14 +103,23 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
   //TODO:Check if user has stripe pro membership
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
+
+    console.log(values)
     try {
       if (data) {
-        axios.patch(`/api/${data.id}`);
+        axios.patch(`/api/${data.id}`, values);
       } else {
-        axios.post("/api/create");
+        axios.post("/api/companion", values);
       }
+
+      toast.success("Companion successfully created")
+
+      router.push("/")
+      router.refresh()
     } catch (error) {
-      console.log(error);
+      console.error(error);
+
+      toast.error("Something went wrong")
     }
   };
 
@@ -190,7 +202,7 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                     </SelectTrigger>
                     <SelectContent>
                       {categories.map((category) => (
-                        <SelectItem key={category.id} value={category.name}>
+                        <SelectItem key={category.id} value={category.id}>
                           {category.name}
                         </SelectItem>
                       ))}

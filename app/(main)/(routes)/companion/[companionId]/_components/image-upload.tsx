@@ -3,7 +3,7 @@ import Image from "next/image";
 
 interface ImageUploadProps {
     imageUrl: string;
-    onUpload: any;
+    onUpload: (result: any) => void;
 }
 
 export const ImageUpload = ({ imageUrl,  onUpload }: ImageUploadProps) => {

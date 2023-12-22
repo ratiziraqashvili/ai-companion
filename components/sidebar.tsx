@@ -31,10 +31,9 @@ export const Sidebar = () => {
   return (
     <div className="flex flex-col h-full p-1 space-y-2 pt-3 w-full">
       {routes.map((route) => (
-        <Link href={route.href}>
+        <Link key={route.href} href={route.href}>
           <div
             role="button"
-            key={route.href}
             className={cn(
               "flex flex-col items-center text-muted-foreground hover:text-white space-y-2 p-3 transition rounded-lg hover:bg-primary/10",
               pathname === route.href && "bg-primary/10 text-white"

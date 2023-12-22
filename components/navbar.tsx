@@ -14,6 +14,7 @@ export const Navbar = () => {
             </div>
               <MobileSidebar />
             <div className="flex space-x-2 sm:space-x-4 items-center">
+                {/*TODO:Link To Stripe*/}
                 <Button variant="premium" size="sm">
                     Upgrade
                     <Sparkles className="h-4 w-4 ml-2 fill-white" />
