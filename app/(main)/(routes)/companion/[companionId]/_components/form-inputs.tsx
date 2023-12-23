@@ -107,7 +107,7 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
     console.log(values);
     try {
       if (data) {
-        await axios.patch(`/api/${data.id}`, values);
+        await axios.patch(`/api/companion/${data.id}`, values);
       } else {
         await axios.post("/api/companion", values);
       }
@@ -145,7 +145,7 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                 <FormControl>
                   <ImageUpload
                     {...field}
-                    imageUrl={imageUrl}
+                    imageUrl={data?.imageSrc || imageUrl}
                     onUpload={onUpload}
                   />
                 </FormControl>
@@ -165,6 +165,7 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                       disabled={isLoading}
                       {...field}
                       placeholder="Elon Musk"
+                      value={data?.name}
                     />
                   </FormControl>
                   <FormDescription>
@@ -185,6 +186,7 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                       disabled={isLoading}
                       {...field}
                       placeholder="CEO & Founder of Tesla, SpaceX"
+                      value={data?.description}
                     />
                   </FormControl>
                   <FormDescription>
@@ -236,6 +238,7 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                     rows={7}
                     {...field}
                     placeholder={dummyPlaceholder}
+                    value={data?.instructions}
                   />
                 </FormControl>
                 <FormDescription>
@@ -258,6 +261,7 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                     rows={7}
                     {...field}
                     placeholder={dummyConversation}
+                    value={data?.seed}
                   />
                 </FormControl>
                 <FormDescription>

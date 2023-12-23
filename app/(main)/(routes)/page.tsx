@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 export default async function Home() {
   const categories = await db.category.findMany();
   const companions = await db.companion.findMany();
-
+  
   return (
     <div className="">
       <MainInput />
