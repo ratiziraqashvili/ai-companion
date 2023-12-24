@@ -30,17 +30,10 @@ interface ChatNavbarProps {
 }
 
 export const ChatNavbar = ({ companion, userId }: ChatNavbarProps) => {
-  const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
-  if (!mounted) {
-    return null;
-  }
 
   const onDelete = async () => {
     try {

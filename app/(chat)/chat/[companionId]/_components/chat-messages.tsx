@@ -39,22 +39,24 @@ export const ChatMessages = ({
              isLoading={fakeLoading}
              role="system"
              content={`Hello, I am ${companion.name}, ${companion.description}`}
+             imageSrc={companion.imageSrc}
             />
             {messages.map((message) => (
                 <ChatMessage
                  key={message.content}
-                 src={companion.imageSrc}
+                 imageSrc={companion.imageSrc}
                  content={message.content}
                  role={message.role}
                 />
             ))}
             {isLoading && (
                 <ChatMessage
-                 src={companion.imageSrc}
+                 imageSrc={companion.imageSrc}
                  role="system"
                  isLoading
                 />
             )}
+            <div ref={scrollRef} />
        </div>
     )
 }

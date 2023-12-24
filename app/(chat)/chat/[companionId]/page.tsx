@@ -20,9 +20,14 @@ const ChatPage = async ({ params }: { params: { companionId: string } }) => {
         select: {
           messages: true
         }
-      }
+      },
+      messages: true
     }
   });
+
+  if (!companion) {
+    throw new Error("Companion not found");
+  }
 
   return <Chat userId={userId} companion={companion} />
 };

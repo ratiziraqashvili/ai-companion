@@ -34,7 +34,7 @@ export const Chat = ({ userId, companion }: ChatClientProps) => {
           content: completion,
         };
 
-        setMessages((current) => [...current, systemMessage]);
+        setMessages(current => [...current, systemMessage]);
         setInput("");
 
         router.refresh();
@@ -60,7 +60,12 @@ export const Chat = ({ userId, companion }: ChatClientProps) => {
          isLoading={isLoading}
          messages={messages}
         />
-      <ChatInput />
+      <ChatInput
+       isLoading={isLoading}
+       input={input}
+       handleInputChange={handleInputChange}
+       onSubmit={onSubmit}
+      />
     </div>
   );
 };
