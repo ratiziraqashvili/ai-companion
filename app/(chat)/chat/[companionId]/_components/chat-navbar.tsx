@@ -20,9 +20,12 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
 interface ChatNavbarProps {
-  companion: Companion | null;
+  companion: (Companion & {
+    _count: {
+      messages: number;
+    }
+  }) | null;
   userId: string;
 }
 
@@ -80,7 +83,7 @@ export const ChatNavbar = ({ companion, userId }: ChatNavbarProps) => {
                 {companion?.name}
                 <MessagesSquare className="h-3 w-3 ml-2 text-muted-foreground" />
                 <span className="text-xs text-muted-foreground font-normal ml-1">
-                  0
+                  {companion?._count.messages}
                 </span>
               </h2>
               <span className="text-muted-foreground text-xs">

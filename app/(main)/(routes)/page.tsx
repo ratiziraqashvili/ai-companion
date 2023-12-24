@@ -5,7 +5,18 @@ import { db } from "@/lib/db";
 
 export default async function Home() {
   const categories = await db.category.findMany();
-  const companions = await db.companion.findMany();
+  const companions = await db.companion.findMany({
+    orderBy: {
+      createdAt: "desc"
+    },
+    include: {
+      _count: {
+        select: {
+          messages: true
+        }
+      }
+    }
+  });
   
   return (
     <div className="">

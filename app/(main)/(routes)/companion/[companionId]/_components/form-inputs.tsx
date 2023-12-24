@@ -83,12 +83,12 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      imageSrc: "",
-      name: "",
-      description: "",
+      imageSrc: data?.imageSrc ?? "",
+      name: data?.name ?? "",
+      description: data?.description ?? "",
       category: "",
-      instructions: "",
-      exampleConversation: "",
+      instructions: data?.instructions ?? "",
+      exampleConversation: data?.seed ?? "",
     },
   });
 
@@ -113,7 +113,9 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
       }
 
       toast({
-        description: "Companion successfully created.",
+        description: data
+          ? "Companion successfully updated."
+          : "Companion successfully created.",
         duration: 3000,
       });
 
@@ -145,7 +147,7 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                 <FormControl>
                   <ImageUpload
                     {...field}
-                    imageUrl={data?.imageSrc || imageUrl}
+                    imageUrl={field.value || imageUrl}
                     onUpload={onUpload}
                   />
                 </FormControl>
@@ -165,7 +167,6 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                       disabled={isLoading}
                       {...field}
                       placeholder="Elon Musk"
-                      value={data?.name}
                     />
                   </FormControl>
                   <FormDescription>
@@ -186,7 +187,6 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                       disabled={isLoading}
                       {...field}
                       placeholder="CEO & Founder of Tesla, SpaceX"
-                      value={data?.description}
                     />
                   </FormControl>
                   <FormDescription>
@@ -206,7 +206,11 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                 <FormControl>
                   <Select disabled={isLoading} onValueChange={field.onChange}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
+                      <SelectValue
+                        placeholder={
+                          data ? "Edit a category" : "Select a category"
+                        }
+                      />
                     </SelectTrigger>
                     <SelectContent>
                       {categories.map((category) => (
@@ -238,7 +242,6 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                     rows={7}
                     {...field}
                     placeholder={dummyPlaceholder}
-                    value={data?.instructions}
                   />
                 </FormControl>
                 <FormDescription>
@@ -261,7 +264,6 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
                     rows={7}
                     {...field}
                     placeholder={dummyConversation}
-                    value={data?.seed}
                   />
                 </FormControl>
                 <FormDescription>

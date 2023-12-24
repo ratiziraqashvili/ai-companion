@@ -5,7 +5,11 @@ import { MessagesSquare } from "lucide-react";
 import Link from "next/link";
 
 interface CardsProps {
-  companion: Companion;
+  companion: (Companion & {
+    _count: {
+      messages: number;
+    }
+  });
 }
 
 export const Cards = ({ companion }: CardsProps) => {
@@ -33,7 +37,7 @@ export const Cards = ({ companion }: CardsProps) => {
             @{companion.userName}
           </span>
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
-            <MessagesSquare className="w-3 h-3" />0
+            <MessagesSquare className="w-3 h-3" />{companion._count.messages}
           </span>
         </CardFooter>
       </Link>

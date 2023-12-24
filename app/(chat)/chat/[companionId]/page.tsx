@@ -1,6 +1,8 @@
 import { auth, redirectToSignIn } from "@clerk/nextjs";
-import { ChatNavbar } from "./_components/chat-navbar";
 import { db } from "@/lib/db";
+import { Chat } from "./_components/chat";
+
+
 
 const ChatPage = async ({ params }: { params: { companionId: string } }) => {
   const { userId, user } = auth();
@@ -13,13 +15,16 @@ const ChatPage = async ({ params }: { params: { companionId: string } }) => {
     where: {
       id: params.companionId,
     },
+    include: {
+      _count: {
+        select: {
+          messages: true
+        }
+      }
+    }
   });
 
-  return (
-    <div className="max-w-4xl mx-auto flex flex-col">
-      <ChatNavbar userId={userId} companion={companion} />
-    </div>
-  );
+  return <Chat userId={userId} companion={companion} />
 };
 
 export default ChatPage;
