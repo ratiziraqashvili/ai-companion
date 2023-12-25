@@ -21,7 +21,7 @@ export class MemoryManager {
 
   public async init() {
     if (this.vectorDBClient instanceof Pinecone) {
-      // @ts-ignore
+      
       await this.vectorDBClient.init({
         apiKey: process.env.PINECONE_API_KEY!,
         environment: process.env.PINECONE_ENVIRONMENT!,

@@ -119,8 +119,9 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
         duration: 3000,
       });
 
-      router.refresh();
       router.push("/");
+      router.refresh();
+      
     } catch (error) {
       console.log(error);
       toast({

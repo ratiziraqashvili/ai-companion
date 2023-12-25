@@ -3,7 +3,6 @@ import { db } from "@/lib/db";
 import { Chat } from "./_components/chat";
 
 
-
 const ChatPage = async ({ params }: { params: { companionId: string } }) => {
   const { userId, user } = auth();
 
