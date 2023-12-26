@@ -101,10 +101,8 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
     setValue("imageSrc", result.info.secure_url);
   };
 
-  //TODO:Check if user has stripe pro membership
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
     try {
       if (data) {
         await axios.patch(`/api/companion/${data.id}`, values);
@@ -276,7 +274,7 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
             )}
           />
           <div className="py-10 flex justify-center">
-            <Button type="submit" size="lg">
+            <Button disabled={isLoading} type="submit" size="lg">
               {data ? "Edit your companion" : "Create your companion"}
               <Wand2 className="h-4 w-4 ml-2" />
             </Button>

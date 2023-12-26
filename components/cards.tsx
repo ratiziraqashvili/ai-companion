@@ -28,7 +28,7 @@ export const Cards = ({ companion }: CardsProps) => {
           <span className="text-md text-muted-foreground font-bold">
             {companion.name}
           </span>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-center text-muted-foreground">
             {companion.description}
           </p>
         </CardContent>

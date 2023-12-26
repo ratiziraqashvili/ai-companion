@@ -21,10 +21,9 @@ export class MemoryManager {
 
   public async init() {
     if (this.vectorDBClient instanceof Pinecone) {
-      
-      await this.vectorDBClient.init({
-        apiKey: process.env.PINECONE_API_KEY!,
+      this.vectorDBClient = new Pinecone({
         environment: process.env.PINECONE_ENVIRONMENT!,
+        apiKey: process.env.PINECONE_API_KEY!,
       });
     }
   }
@@ -36,13 +35,13 @@ export class MemoryManager {
     const pineconeClient = <Pinecone>this.vectorDBClient;
 
     const pineconeIndex = pineconeClient.Index(
-      process.env.PINECONE_INDEX! || ""
+      process.env.PINECONE_INDEX! as string || ""
     );
 
     const vectorStore = await PineconeStore.fromExistingIndex(
       new OpenAIEmbeddings({ openAIApiKey: process.env.OPENAI_API_KEY }),
       { pineconeIndex }
-    ); 
+    ) ; 
 
     const similarDocs = await vectorStore
       .similaritySearch(recentChatHistory, 3, { fileName: companionFileName })

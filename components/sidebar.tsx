@@ -26,8 +26,6 @@ export const Sidebar = () => {
     },
   ];
 
-  //TODO:Stripe pro check
-
   return (
     <div className="flex flex-col h-full p-1 space-y-2 pt-3 w-full">
       {routes.map((route) => (

@@ -50,6 +50,7 @@ export const Chat = ({ userId, companion }: ChatClientProps) => {
         setMessages((current) => [...current, userMessage]);
 
         handleSubmit(e);
+        setInput("")
     }
 
   return (

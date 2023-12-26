@@ -13,7 +13,6 @@ const companionIdPage = async ({
     return redirectToSignIn();
   }
 
-  //TODO:check stripe subscription
 
   const categories = await db.category.findMany();
 

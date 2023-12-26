@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import { StreamingTextResponse, LangChainStream } from "ai";
 import { currentUser } from "@clerk/nextjs";
 import { Replicate } from "langchain/llms/replicate";
@@ -7,7 +8,6 @@ import { NextResponse } from "next/server";
 import { MemoryManager } from "@/lib/memory";
 import { rateLimit } from "@/lib/rate-limit";
 import { db } from "@/lib/db";
-import dotenv from "dotenv";
 
 dotenv.config({ path: `.env` });
 
@@ -45,10 +45,6 @@ export async function POST(
       }
     });
 
-    if (!companion) {
-      return new NextResponse("Companion not found", { status: 404 });
-    }
-
     const name = companion.id;
     const companion_file_name = name + ".txt";
 
@@ -65,7 +61,12 @@ export async function POST(
     }
     await memoryManager.writeToHistory("User: " + prompt + "\n", companionKey);
 
+    // Query Pinecone
+
     const recentChatHistory = await memoryManager.readLatestHistory(companionKey);
+
+    // Right now the preamble is included in the similarity search, but that
+    // shouldn't be an issue
 
     const similarDocs = await memoryManager.vectorSearch(
       recentChatHistory,
@@ -77,7 +78,7 @@ export async function POST(
       relevantHistory = similarDocs.map((doc) => doc.pageContent).join("\n");
     }
     const { handlers } = LangChainStream();
- 
+    // Call Replicate for inference
     const model = new Replicate({
       model:
         "a16z-infra/llama-2-13b-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5",
@@ -88,7 +89,7 @@ export async function POST(
       callbackManager: CallbackManager.fromHandlers(handlers),
     });
 
-
+    // Turn verbose on for debugging
     model.verbose = true;
 
     const resp = String(
@@ -139,6 +140,7 @@ export async function POST(
 
     return new StreamingTextResponse(s);
   } catch (error) {
+    console.log(error)
     return new NextResponse("Internal Error", { status: 500 });
   }
 };

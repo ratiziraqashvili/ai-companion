@@ -1,5 +1,3 @@
-import { Sparkles } from "lucide-react"
-import { Button } from "./ui/button"
 import { UserButton } from "@clerk/nextjs"
 import Link from "next/link"
 import { MobileSidebar } from "./mobile-sidebar"
@@ -13,12 +11,7 @@ export const Navbar = () => {
                 </Link>
             </div>
               <MobileSidebar />
-            <div className="flex space-x-2 sm:space-x-4 items-center">
-                {/*TODO:Link To Stripe*/}
-                <Button variant="premium" size="sm">
-                    Upgrade
-                    <Sparkles className="h-4 w-4 ml-2 fill-white" />
-                </Button>  
+            <div className="flex space-x-2 sm:space-x-4 items-center"> 
                 <UserButton afterSignOutUrl="/" />        
             </div>
         </div>
