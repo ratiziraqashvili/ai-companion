@@ -25,7 +25,7 @@ export const Cards = ({ companion }: CardsProps) => {
               alt="Companion image"
             />
       </div>
-          <span className="text-md text-muted-foreground font-bold">
+          <span className="text-md text-muted-foreground font-bold text-center">
             {companion.name}
           </span>
           <p className="text-xs text-center text-muted-foreground">

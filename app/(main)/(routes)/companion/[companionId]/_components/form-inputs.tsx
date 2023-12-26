@@ -46,15 +46,19 @@ const formSchema = z.object({
   }),
   name: z.string().min(1, {
     message: "Name is required",
+  }).max(20, {
+    message: "Name should be less that 20 characters"
   }),
   description: z.string().min(1, {
     message: "Description is required",
+  }).max(50, {
+    message: "Description should be less than 50 characters"
   }),
   category: z.string().min(1, {
     message: "Category is required",
   }),
   instructions: z.string().min(200, {
-    message: "Instruction must be more than 200 letters.",
+    message: "Instruction must be more than 200 letters",
   }),
   exampleConversation: z.string().min(200, {
     message: "Example Conversation must be more that 200 letters",
